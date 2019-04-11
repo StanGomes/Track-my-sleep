@@ -20,12 +20,12 @@ abstract class SleepTrackerDatabase : RoomDatabase() {
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        SleepTrackerDatabase::class.java,
-                        "sleep_quality_db"
+                            context.applicationContext,
+                            SleepTrackerDatabase::class.java,
+                            "sleep_quality_db"
                     )
-                        .fallbackToDestructiveMigration()
-                        .build()
+                            .fallbackToDestructiveMigration()
+                            .build()
                 }
                 return instance
             }

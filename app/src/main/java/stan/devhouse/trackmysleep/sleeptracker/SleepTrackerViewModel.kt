@@ -22,25 +22,26 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
 
     private val _navigateToSleepQuality = MutableLiveData<DailySleepQualityEntity>()
     val navigateToSleepQuality: LiveData<DailySleepQualityEntity>
-    get() = _navigateToSleepQuality
+        get() = _navigateToSleepQuality
 
     private var _showSnackBarEvent = MutableLiveData<Boolean>()
     val showSnackBarEvent: LiveData<Boolean>
-    get() = _showSnackBarEvent
+        get() = _showSnackBarEvent
 
-    val nightsString = Transformations.map(allNights) { nights -> formatNightsString(nights, application.resources)
+    val nightsString = Transformations.map(allNights) { nights ->
+        formatNightsString(nights, application.resources)
     }!!
 
     //Visible when currentNight is null
-    val startButtonVisibility = Transformations.map(currentNight){
+    val startButtonVisibility = Transformations.map(currentNight) {
         null == it
     }!!
     //Visible when currentNight is not null
-    val stopButtonVisibility = Transformations.map(currentNight){
+    val stopButtonVisibility = Transformations.map(currentNight) {
         null != it
     }!!
     //Visible if all nights is not empty
-    val clearButtonVisibility = Transformations.map(allNights){
+    val clearButtonVisibility = Transformations.map(allNights) {
         it?.isNotEmpty()
     }!!
 
@@ -55,9 +56,9 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
     }
 
     private suspend fun getCurrentNightFromDb(): DailySleepQualityEntity? {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             var night = db.getLatestSleepQuality()
-            if (night?.endTime != night?.startTime){
+            if (night?.endTime != night?.startTime) {
                 night = null
             }
             night
@@ -69,7 +70,7 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
         viewModelJob.cancel()
     }
 
-    fun onStartTracking(){
+    fun onStartTracking() {
         uiScope.launch {
             val newNight = DailySleepQualityEntity()
             insert(newNight)
@@ -77,15 +78,15 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
         }
     }
 
-    private suspend fun insert(night: DailySleepQualityEntity){
-        withContext(Dispatchers.IO){
+    private suspend fun insert(night: DailySleepQualityEntity) {
+        withContext(Dispatchers.IO) {
             db.insert(night)
         }
     }
 
-    fun onStopTracking(){
+    fun onStopTracking() {
         uiScope.launch {
-            val oldNight = currentNight.value?: return@launch
+            val oldNight = currentNight.value ?: return@launch
             oldNight.endTime = System.currentTimeMillis()
             update(oldNight)
             _navigateToSleepQuality.value = oldNight
@@ -96,17 +97,17 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
         _navigateToSleepQuality.value = null
     }
 
-    fun onSnackBarShowed(){
+    fun onSnackBarShowed() {
         _showSnackBarEvent.value = false
     }
 
-    private suspend fun update(night: DailySleepQualityEntity){
-        withContext(Dispatchers.IO){
+    private suspend fun update(night: DailySleepQualityEntity) {
+        withContext(Dispatchers.IO) {
             db.update(night)
         }
     }
 
-    fun onClear(){
+    fun onClear() {
         uiScope.launch {
             clear()
             currentNight.value = null
@@ -114,8 +115,8 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
         }
     }
 
-    private suspend fun clear(){
-        withContext(Dispatchers.IO){
+    private suspend fun clear() {
+        withContext(Dispatchers.IO) {
             db.clear()
         }
     }

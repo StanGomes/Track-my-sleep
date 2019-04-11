@@ -18,16 +18,16 @@ class SleepQualityViewModel(private val sleepKey: Long = 0L,
     }
 
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
-    val navigateToSleepTracker : LiveData<Boolean?>
-    get () = _navigateToSleepTracker
+    val navigateToSleepTracker: LiveData<Boolean?>
+        get () = _navigateToSleepTracker
 
-    fun onNavigationDone(){
+    fun onNavigationDone() {
         _navigateToSleepTracker.value = null
     }
 
-    fun onQualityBtnPressed(quality: Int){
+    fun onQualityBtnPressed(quality: Int) {
         uiScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 val tonight = db.get(sleepKey) ?: return@withContext
                 tonight.qualityRating = quality
                 db.update(tonight)
