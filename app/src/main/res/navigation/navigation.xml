@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation"
+            app:startDestination="@id/sleepTrackerTestFragment">
+
+    <fragment android:id="@+id/sleepTrackerTestFragment"
+              android:name="stan.devhouse.trackmysleep.sleeptracker.SleepTrackerFragment"
+              android:label="sleep_tracker_test_fragment" tools:layout="@layout/sleep_tracker_test_fragment">
+        <action android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
+                app:destination="@id/sleepQualityFragment" app:enterAnim="@anim/slide_in_right"
+                app:popEnterAnim="@anim/slide_in_right" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment android:id="@+id/sleepQualityFragment"
+              android:name="stan.devhouse.trackmysleep.sleepquality.SleepQualityFragment"
+              android:label="sleep_quality_fragment" tools:layout="@layout/sleep_quality_fragment">
+        <action android:id="@+id/action_sleepQualityFragment_to_sleepTrackerFragment"
+                app:destination="@id/sleepTrackerTestFragment" app:popUpTo="@+id/sleepTrackerTestFragment"
+                app:popUpToInclusive="true" app:launchSingleTop="false"/>
+        <argument android:name="sleepQualityKey" app:argType="long"/>
+    </fragment>
+</navigation>
