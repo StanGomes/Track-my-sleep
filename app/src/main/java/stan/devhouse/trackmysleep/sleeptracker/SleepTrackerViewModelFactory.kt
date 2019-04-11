@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import stan.devhouse.trackmysleep.db.SleepTrackerDao
 
 class SleepTrackerViewModelFactory(
-    private val dataSource: SleepTrackerDao,
-    private val application: Application
+        private val dataSource: SleepTrackerDao,
+        private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
