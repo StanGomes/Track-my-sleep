@@ -8,7 +8,6 @@ import androidx.lifecycle.Transformations
 import kotlinx.coroutines.*
 import stan.devhouse.trackmysleep.db.SleepTrackerDao
 import stan.devhouse.trackmysleep.db.entity.DailySleepQualityEntity
-import stan.devhouse.trackmysleep.formatNightsString
 
 class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Application) : AndroidViewModel(application) {
 
@@ -18,7 +17,7 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
 
     private var currentNight = MutableLiveData<DailySleepQualityEntity?>()
 
-    private val allNights = db.getAllSleepQuality()
+    val allNights = db.getAllSleepQuality()
 
     private val _navigateToSleepQuality = MutableLiveData<DailySleepQualityEntity>()
     val navigateToSleepQuality: LiveData<DailySleepQualityEntity>
@@ -28,9 +27,6 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
     val showSnackBarEvent: LiveData<Boolean>
         get() = _showSnackBarEvent
 
-    val nightsString = Transformations.map(allNights) { nights ->
-        formatNightsString(nights, application.resources)
-    }!!
 
     //Visible when currentNight is null
     val startButtonVisibility = Transformations.map(currentNight) {

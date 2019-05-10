@@ -27,4 +27,7 @@ interface SleepTrackerDao {
 
     @Query("select * from daily_sleep_quality_table order by sleepId desc limit 1")
     fun getLatestSleepQuality(): DailySleepQualityEntity?
+
+    @Query("select * from daily_sleep_quality_table where sleepId = :key")
+    fun getSleepWithId(key: Long): LiveData<DailySleepQualityEntity>
 }

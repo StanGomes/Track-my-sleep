@@ -5,16 +5,16 @@
             app:startDestination="@id/sleepTrackerFragment">
 
     <fragment
-        android:id="@+id/sleepTrackerFragment"
-        android:name="stan.devhouse.trackmysleep.sleeptracker.SleepTrackerFragment"
-        android:label="sleep_tracker_fragment">
+            android:id="@+id/sleepTrackerFragment"
+            android:name="stan.devhouse.trackmysleep.sleeptracker.SleepTrackerFragment"
+            android:label="sleep_tracker_fragment">
         <action
-            android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
-            app:destination="@id/sleepQualityFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+                android:id="@+id/action_sleepTrackerFragment_to_sleepQualityFragment"
+                app:destination="@id/sleepQualityFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/slide_in_right"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/sleepQualityFragment"
               android:name="stan.devhouse.trackmysleep.sleepquality.SleepQualityFragment"
@@ -23,5 +23,18 @@
                 app:destination="@id/sleepTrackerFragment" app:popUpTo="@+id/sleepTrackerFragment"
                 app:popUpToInclusive="true" app:launchSingleTop="false"/>
         <argument android:name="sleepQualityKey" app:argType="long"/>
+    </fragment>
+    <fragment android:id="@+id/sleepDetailFragment"
+              android:name="stan.devhouse.trackmysleep.sleepdetail.SleepDetailFragment"
+              android:label="SleepDetailFragment"
+              tools:layout="@layout/sleep_detail_fragment">
+        <argument
+            android:name="sleepKey"
+            app:argType="long" />
+        <action android:id="@+id/action_sleepDetailFragment_to_sleepTrackerFragment"
+                app:destination="@id/sleepTrackerFragment"
+                app:launchSingleTop="false"
+                app:popUpToInclusive="true"
+                app:popUpTo="@+id/sleepTrackerFragment"/>
     </fragment>
 </navigation>
