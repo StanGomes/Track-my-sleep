@@ -20,12 +20,13 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
     val allNights = db.getAllSleepQuality()
 
     private val _navigateToSleepQuality = MutableLiveData<DailySleepQualityEntity>()
-    val navigateToSleepQuality: LiveData<DailySleepQualityEntity>
-        get() = _navigateToSleepQuality
+    val navigateToSleepQuality: LiveData<DailySleepQualityEntity> = _navigateToSleepQuality
 
-    private var _showSnackBarEvent = MutableLiveData<Boolean>()
-    val showSnackBarEvent: LiveData<Boolean>
-        get() = _showSnackBarEvent
+    private val _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean> = _showSnackBarEvent
+
+    private val _navigateToSleepDetail = MutableLiveData<Long>()
+    val navigateToSleepDetail = _navigateToSleepDetail
 
 
     //Visible when currentNight is null
@@ -115,5 +116,13 @@ class SleepTrackerViewModel(private val db: SleepTrackerDao, application: Applic
         withContext(Dispatchers.IO) {
             db.clear()
         }
+    }
+
+    fun onSleepNightClicked(sleepId: Long) {
+        _navigateToSleepDetail.value = sleepId
+    }
+
+    fun onNavigatedToSleepDetail(){
+        _navigateToSleepDetail.value = null
     }
 }

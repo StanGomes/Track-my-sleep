@@ -61,6 +61,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_sleepTrackerFragment_to_sleepDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_sleepTrackerFragment_to_sleepQualityFragment">
                               <value>
                                 <LayoutPositions />
